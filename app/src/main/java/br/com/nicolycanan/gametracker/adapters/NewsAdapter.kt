@@ -1,4 +1,4 @@
-package br.com.nicolycanan.gametracker.NewsManager
+package br.com.nicolycanan.gametracker.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,9 +7,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.nicolycanan.gametracker.R
+import br.com.nicolycanan.gametracker.model.News
 
 class NewsAdapter(
-    private val items: MutableList<News>
+    private val items: MutableList<News> = mutableListOf(),
+    private val onClick: ((News) -> Unit)? = null
 ) : RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -26,12 +28,23 @@ class NewsAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
+
         holder.title.text = item.title
         holder.subtitle.text = item.subtitle
         holder.image.setImageResource(item.imageRes)
+
+        holder.itemView.setOnClickListener { onClick?.invoke(item) }
     }
 
-    override fun getItemCount() = items.size
+    override fun getItemCount(): Int = items.size
+
+    // ---------- Manipulação de dados (fácil) ----------
+
+    fun setItems(newItems: List<News>) {
+        items.clear()
+        items.addAll(newItems)
+        notifyDataSetChanged()
+    }
 
     fun addItem(news: News) {
         items.add(news)
@@ -39,8 +52,14 @@ class NewsAdapter(
     }
 
     fun removeItem(position: Int) {
+        if (position !in items.indices) return
         items.removeAt(position)
         notifyItemRemoved(position)
     }
-}
 
+    fun updateItem(position: Int, news: News) {
+        if (position !in items.indices) return
+        items[position] = news
+        notifyItemChanged(position)
+    }
+}

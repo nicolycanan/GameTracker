@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">GameTracker</string>
+    <string name="Home">Home</string>
+    <string name="Buscar">Buscar</string>
+    <string name="DescubraUmJogo">Descubra um jogo</string>
+    <string name="Perfil">Perfil</string>
 </resources>

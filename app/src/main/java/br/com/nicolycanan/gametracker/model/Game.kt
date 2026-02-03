@@ -1,4 +1,10 @@
 package br.com.nicolycanan.gametracker.model
 
-class Game {
-}
+import androidx.annotation.DrawableRes
+
+data class Game(
+    val id: Int,
+    val name: String,
+    @DrawableRes val imageRes: Int,
+    val description: String
+)

@@ -1,4 +1,4 @@
-package br.com.nicolycanan.gametracker.NewsManager
+package br.com.nicolycanan.gametracker.model
 
 data class News(
     val title: String,
